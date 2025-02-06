@@ -102,7 +102,7 @@ async def upload_media(sender, target_chat_id, file, caption, edit, topic_id):
                     reply_to_message_id=topic_id,
                     parse_mode=ParseMode.MARKDOWN,
                     progress=progress_bar,
-                    progress_args=("╭─────────────────────╮\n│      **__Pyro Uploader__**\n├─────────────────────", edit, time.time())
+                    progress_args=("╭─────────────────────╮\n│      **__Pyro 🚀Uploader🚀__**\n├─────────────────────", edit, time.time())
                 )
                 await dm.copy(LOG_GROUP)
                 
@@ -114,7 +114,7 @@ async def upload_media(sender, target_chat_id, file, caption, edit, topic_id):
                     parse_mode=ParseMode.MARKDOWN,
                     progress=progress_bar,
                     reply_to_message_id=topic_id,
-                    progress_args=("╭─────────────────────╮\n│      **__Pyro Uploader__**\n├─────────────────────", edit, time.time())
+                    progress_args=("╭─────────────────────╮\n│      **__Pyro 🚀Uploader🚀__**\n├─────────────────────", edit, time.time())
                 )
                 await dm.copy(LOG_GROUP)
             else:
@@ -126,7 +126,7 @@ async def upload_media(sender, target_chat_id, file, caption, edit, topic_id):
                     reply_to_message_id=topic_id,
                     progress=progress_bar,
                     parse_mode=ParseMode.MARKDOWN,
-                    progress_args=("╭─────────────────────╮\n│      **__Pyro Uploader__**\n├─────────────────────", edit, time.time())
+                    progress_args=("╭─────────────────────╮\n│      **__Pyro 🚀Uploader🚀__**\n├─────────────────────", edit, time.time())
                 )
                 await asyncio.sleep(2)
                 await dm.copy(LOG_GROUP)
@@ -134,7 +134,7 @@ async def upload_media(sender, target_chat_id, file, caption, edit, topic_id):
         # Telethon upload
         elif upload_method == "Telethon":
             await edit.delete()
-            progress_message = await gf.send_message(sender, "**__Uploading...__**")
+            progress_message = await gf.send_message(sender, "**__🚀Uploading...🚀__**")
             caption = await format_caption_to_html(caption)
             uploaded = await fast_upload(
                 gf, file,
@@ -170,8 +170,8 @@ async def upload_media(sender, target_chat_id, file, caption, edit, topic_id):
             )
 
     except Exception as e:
-        await app.send_message(LOG_GROUP, f"**Upload Failed:** {str(e)}")
-        print(f"Error during media upload: {e}")
+        await app.send_message(LOG_GROUP, f"**⚠Upload Failed❗:** {str(e)}")
+        print(f"⚠Error during media upload❗: {e}")
 
     finally:
         if thumb_path and os.path.exists(thumb_path):
@@ -201,14 +201,14 @@ async def get_msg(userbot, sender, edit_id, msg_link, i, message):
             if chat in saved_channel_ids:
                 await app.edit_message_text(
                     message.chat.id, edit_id,
-                    "Sorry! This channel is protected by **__Team SPY__**."
+                    "Sorry!💢 This channel is protected🔏 by **__🍁✨BhardwajBhavit✨🍁__**."
                 )
                 return
             
         elif '/s/' in msg_link: # fixed story typo
-            edit = await app.edit_message_text(sender, edit_id, "Story Link Dictected...")
+            edit = await app.edit_message_text(sender, edit_id, "❄Story Link Dictected...🎗")
             if userbot is None:
-                await edit.edit("Login in bot save stories...")     
+                await edit.edit("⚠Login in bot save stories...🤞")     
                 return
             parts = msg_link.split("/")
             chat = parts[3]
@@ -222,7 +222,7 @@ async def get_msg(userbot, sender, edit_id, msg_link, i, message):
             return
         
         else:
-            edit = await app.edit_message_text(sender, edit_id, "Public link detected...")
+            edit = await app.edit_message_text(sender, edit_id, "❄Public link detected...🎗")
             chat = msg_link.split("t.me/")[1].split("/")[0]
             msg_id = int(msg_link.split("/")[-1])
             await copy_message_with_chat_id(app, userbot, sender, chat, msg_id, edit)
@@ -257,18 +257,18 @@ async def get_msg(userbot, sender, edit_id, msg_link, i, message):
         file_size = get_message_file_size(msg)
 
         # if file_size and file_size > size_limit and pro is None:
-        #     await app.edit_message_text(sender, edit_id, "**❌ 4GB Uploader not found**")
+        #     await app.edit_message_text(sender, edit_id, "**❌ 4GB Uploader not found❗**")
         #     return
 
         file_name = await get_media_filename(msg)
-        edit = await app.edit_message_text(sender, edit_id, "**Downloading...**")
+        edit = await app.edit_message_text(sender, edit_id, "**🍁Downloading...🍁**")
 
         # Download media
         file = await userbot.download_media(
             msg,
             file_name=file_name,
             progress=progress_bar,
-            progress_args=("╭─────────────────────╮\n│      **__Downloading__...**\n├─────────────────────", edit, time.time())
+            progress_args=("╭─────────────────────╮\n│      **__🌻Downloading🌻__...**\n├─────────────────────", edit, time.time())
         )
         
         caption = await get_final_caption(msg, sender)
@@ -305,7 +305,7 @@ async def get_msg(userbot, sender, edit_id, msg_link, i, message):
             await upload_media(sender, target_chat_id, file, caption, edit, topic_id)
 
     except (ChannelBanned, ChannelInvalid, ChannelPrivate, ChatIdInvalid, ChatInvalid):
-        await app.edit_message_text(sender, edit_id, "Have you joined the channel?")
+        await app.edit_message_text(sender, edit_id, "❗Have you joined the channel❓")
     except Exception as e:
         # await app.edit_message_text(sender, edit_id, f"Failed to save: `{msg_link}`\n\nError: {str(e)}")
         print(f"Error: {e}")
@@ -317,20 +317,20 @@ async def get_msg(userbot, sender, edit_id, msg_link, i, message):
             await edit.delete(2)
         
 async def clone_message(app, msg, target_chat_id, topic_id, edit_id, log_group):
-    edit = await app.edit_message_text(target_chat_id, edit_id, "Cloning...")
+    edit = await app.edit_message_text(target_chat_id, edit_id, "☢Cloning...☢")
     devgaganin = await app.send_message(target_chat_id, msg.text.markdown, reply_to_message_id=topic_id)
     await devgaganin.copy(log_group)
     await edit.delete()
 
 async def clone_text_message(app, msg, target_chat_id, topic_id, edit_id, log_group):
-    edit = await app.edit_message_text(target_chat_id, edit_id, "Cloning text message...")
+    edit = await app.edit_message_text(target_chat_id, edit_id, "☢Cloning text message...☢")
     devgaganin = await app.send_message(target_chat_id, msg.text.markdown, reply_to_message_id=topic_id)
     await devgaganin.copy(log_group)
     await edit.delete()
 
 
 async def handle_sticker(app, msg, target_chat_id, topic_id, edit_id, log_group):
-    edit = await app.edit_message_text(target_chat_id, edit_id, "Handling sticker...")
+    edit = await app.edit_message_text(target_chat_id, edit_id, "➰Handling sticker...➰")
     result = await app.send_sticker(target_chat_id, msg.sticker.file_id, reply_to_message_id=topic_id)
     await result.copy(log_group)
     await edit.delete()
@@ -375,17 +375,17 @@ async def download_user_stories(userbot, chat_id, msg_id, edit, sender):
         # Fetch the story using the provided chat ID and message ID
         story = await userbot.get_stories(chat_id, msg_id)
         if not story:
-            await edit.edit("No story available for this user.")
+            await edit.edit("🌩No story available for this user.🌩")
             return  
         if not story.media:
-            await edit.edit("The story doesn't contain any media.")
+            await edit.edit("🌩The story doesn't contain any media.🌩")
             return
-        await edit.edit("Downloading Story...")
+        await edit.edit("🌻Downloading Story...🌻")
         file_path = await userbot.download_media(story)
         print(f"Story downloaded: {file_path}")
         # Send the downloaded story based on its type
         if story.media:
-            await edit.edit("Uploading Story...")
+            await edit.edit("🚀Uploading Story...🚀")
             if story.media == MessageMediaType.VIDEO:
                 await app.send_video(sender, file_path)
             elif story.media == MessageMediaType.DOCUMENT:
@@ -394,9 +394,9 @@ async def download_user_stories(userbot, chat_id, msg_id, edit, sender):
                 await app.send_photo(sender, file_path)
         if file_path and os.path.exists(file_path):
             os.remove(file_path)  
-        await edit.edit("Story processed successfully.")
+        await edit.edit("✨✔Story processed successfully.✔✨")
     except RPCError as e:
-        print(f"Failed to fetch story: {e}")
+        print(f"⚠Failed to fetch story❗: {e}")
         await edit.edit(f"Error: {e}")
         
 async def copy_message_with_chat_id(app, userbot, sender, chat_id, message_id, edit):
@@ -425,7 +425,7 @@ async def copy_message_with_chat_id(app, userbot, sender, chat_id, message_id, e
 
         # Fallback if result is None
         if result is None:
-            await edit.edit("Trying if it is a group...")
+            await edit.edit("〽Trying if it is a group...〽")
             chat_id = (await userbot.get_chat(f"@{chat_id}")).id
             msg = await userbot.get_messages(chat_id, message_id)
 
@@ -436,7 +436,7 @@ async def copy_message_with_chat_id(app, userbot, sender, chat_id, message_id, e
             file = await userbot.download_media(
                 msg,
                 progress=progress_bar,
-                progress_args=("╭─────────────────────╮\n│      **__Downloading__...**\n├─────────────────────", edit, time.time())
+                progress_args=("╭─────────────────────╮\n│      **__🌻Downloading🌻__...**\n├─────────────────────", edit, time.time())
             )
             file = await rename_file(file, sender)
 
@@ -459,7 +459,7 @@ async def copy_message_with_chat_id(app, userbot, sender, chat_id, message_id, e
             elif msg.sticker:
                 result = await app.send_sticker(target_chat_id, msg.sticker.file_id, reply_to_message_id=topic_id)
             else:
-                await edit.edit("Unsupported media type.")
+                await edit.edit("⚠Unsupported media type❗.")
 
     except Exception as e:
         print(f"Error : {e}")
@@ -482,7 +482,7 @@ async def send_media_message(app, target_chat_id, msg, caption, topic_id):
         if msg.photo:
             return await app.send_photo(target_chat_id, msg.photo.file_id, caption=caption, reply_to_message_id=topic_id)
     except Exception as e:
-        print(f"Error while sending media: {e}")
+        print(f"⚠Error while sending media❗: {e}")
     
     # Fallback to copy_message in case of any exceptions
     return await app.copy_message(target_chat_id, msg.chat.id, msg.id, reply_to_message_id=topic_id)
@@ -512,7 +512,7 @@ def load_user_data(user_id, key, default_value=None):
         user_data = collection.find_one({"_id": user_id})
         return user_data.get(key, default_value) if user_data else default_value
     except Exception as e:
-        print(f"Error loading {key}: {e}")
+        print(f"⚠Error loading {key}❗: {e}")
         return default_value
 
 def load_saved_channel_ids():
@@ -522,7 +522,7 @@ def load_saved_channel_ids():
         for channel_doc in collection.find({"channel_id": {"$exists": True}}):
             saved_channel_ids.add(channel_doc["channel_id"])
     except Exception as e:
-        print(f"Error loading saved channel IDs: {e}")
+        print(f"⚠Error loading saved channel IDs❗: {e}")
     return saved_channel_ids
 
 def save_user_data(user_id, key, value):
@@ -533,7 +533,7 @@ def save_user_data(user_id, key, value):
             upsert=True
         )
     except Exception as e:
-        print(f"Error saving {key}: {e}")
+        print(f"⚠Error saving {key}❗: {e}")
 
 
 # Delete and replacement word functions
@@ -571,7 +571,7 @@ get_user_caption_preference = lambda user_id: user_caption_preferences.get(str(u
 sessions = {}
 m = None
 SET_PIC = "settings.jpg"
-MESS = "Customize by your end and Configure your settings ..."
+MESS = "🤞🍁Customize by your end and Configure your settings ...🍁🤞"
 
 @gf.on(events.NewMessage(incoming=True, pattern='/settings'))
 async def settings_command(event):
@@ -582,14 +582,14 @@ async def send_settings_message(chat_id, user_id):
     
     # Define the rest of the buttons
     buttons = [
-        [Button.inline("Set Chat ID", b'setchat'), Button.inline("Set Rename Tag", b'setrename')],
-        [Button.inline("Caption", b'setcaption'), Button.inline("Replace Words", b'setreplacement')],
-        [Button.inline("Remove Words", b'delete'), Button.inline("Reset", b'reset')],
-        [Button.inline("Session Login", b'addsession'), Button.inline("Logout", b'logout')],
-        [Button.inline("Set Thumbnail", b'setthumb'), Button.inline("Remove Thumbnail", b'remthumb')],
-        [Button.inline("PDF Wtmrk", b'pdfwt'), Button.inline("Video Wtmrk", b'watermark')],
-        [Button.inline("Upload Method", b'uploadmethod')],  # Include the dynamic Fast DL button
-        [Button.url("Report Errors", "https://t.me/team_spy_pro")]
+        [Button.inline("🤞Set Chat ID🤞", b'setchat'), Button.inline("🏴‍☠️Set Rename Tag🏴‍☠️", b'setrename')],
+        [Button.inline("❄Caption❄", b'setcaption'), Button.inline("⚜Replace Words⚜", b'setreplacement')],
+        [Button.inline("✨Remove Words✨", b'delete'), Button.inline("♻Reset♻", b'reset')],
+        [Button.inline("🔗Session Login🔗", b'addsession'), Button.inline("💢Logout💢", b'logout')],
+        [Button.inline("🤞Set Thumbnail🤞", b'setthumb'), Button.inline("✨Remove Thumbnail✨", b'remthumb')],
+        [Button.inline("💦PDF Wtmrk💦", b'pdfwt'), Button.inline("💦Video Wtmrk💦", b'watermark')],
+        [Button.inline("✨Upload Method✨", b'uploadmethod')],  # Include the dynamic Fast DL button
+        [Button.url("🃏Report Errors❗", "https://t.me/moviewalachat")]
     ]
 
     await gf.send_file(
@@ -607,66 +607,66 @@ async def callback_query_handler(event):
     user_id = event.sender_id
     
     if event.data == b'setchat':
-        await event.respond("Send me the ID of that chat:")
+        await event.respond("🌻Send me the ID of that chat🌻:")
         sessions[user_id] = 'setchat'
 
     elif event.data == b'setrename':
-        await event.respond("Send me the rename tag:")
+        await event.respond("🌻Send me the rename tag🌻:")
         sessions[user_id] = 'setrename'
     
     elif event.data == b'setcaption':
-        await event.respond("Send me the caption:")
+        await event.respond("🌻Send me the caption🌻:")
         sessions[user_id] = 'setcaption'
 
     elif event.data == b'setreplacement':
-        await event.respond("Send me the replacement words in the format: 'WORD(s)' 'REPLACEWORD'")
+        await event.respond("🌻Send me the replacement words in the format: 'WORD(s)' 'REPLACEWORD'")
         sessions[user_id] = 'setreplacement'
 
     elif event.data == b'addsession':
-        await event.respond("Send Pyrogram V2 session")
+        await event.respond("🌻Send Pyrogram V2 session🌻")
         sessions[user_id] = 'addsession' # (If you want to enable session based login just uncomment this and modify response message accordingly)
 
     elif event.data == b'delete':
-        await event.respond("Send words seperated by space to delete them from caption/filename ...")
+        await event.respond("🌻Send words seperated by space to delete them from caption/filename ...🌻")
         sessions[user_id] = 'deleteword'
         
     elif event.data == b'logout':
         await odb.remove_session(user_id)
         user_data = await odb.get_data(user_id)
         if user_data and user_data.get("session") is None:
-            await event.respond("Logged out and deleted session successfully.")
+            await event.respond("🎗LoggedOut🔏❗ and deleted session successfully✨✔.")
         else:
-            await event.respond("You are not logged in.")
+            await event.respond("⚠You are not logged in❗.")
         
     elif event.data == b'setthumb':
         pending_photos[user_id] = True
-        await event.respond('Please send the photo you want to set as the thumbnail.')
+        await event.respond('🌻Please send the photo you want to set as the thumbnail🌻.')
     
     elif event.data == b'pdfwt':
-        await event.respond("Watermark is Pro+ Plan.. contact @kingofpatal")
+        await event.respond("💦Watermark💦 is Pro+👑 Plan.. 🌻contact 🤞@BhardwajBhavit")
         return
 
     elif event.data == b'uploadmethod':
         # Retrieve the user's current upload method (default to Pyrogram)
         user_data = collection.find_one({'user_id': user_id})
         current_method = user_data.get('upload_method', 'Pyrogram') if user_data else 'Pyrogram'
-        pyrogram_check = " ✅" if current_method == "Pyrogram" else ""
-        telethon_check = " ✅" if current_method == "Telethon" else ""
+        pyrogram_check = " 🏴‍☠️" if current_method == "Pyrogram" else ""
+        telethon_check = " 🏴‍☠️" if current_method == "Telethon" else ""
 
         # Display the buttons for selecting the upload method
         buttons = [
             [Button.inline(f"Pyrogram v2{pyrogram_check}", b'pyrogram')],
-            [Button.inline(f"SpyLib v1 ⚡{telethon_check}", b'telethon')]
+            [Button.inline(f"BhardwajLib v1 ⚡{telethon_check}", b'telethon')]
         ]
-        await event.edit("Choose your preferred upload method:\n\n__**Note:** **SpyLib ⚡**, built on Telethon(base), by Team SPY still in beta.__", buttons=buttons)
+        await event.edit("🎗Choose your preferred upload🚀 method:\n\n__**Note:** **🏴‍☠️Bhardwaj ⚡**, built on Telethon(base), by 🍁BhardwajBhavit🍁 still in beta.__", buttons=buttons)
 
     elif event.data == b'pyrogram':
         save_user_upload_method(user_id, "Pyrogram")
-        await event.edit("Upload method set to **Pyrogram** ✅")
+        await event.edit("Upload🚀 method set✔ to **Pyrogram** ✨✔")
 
     elif event.data == b'telethon':
         save_user_upload_method(user_id, "Telethon")
-        await event.edit("Upload method set to **SpyLib ⚡\n\nThanks for choosing this library as it will help me to analyze the error raise issues on github.** ✅")        
+        await event.edit("Upload🚀 method set to **🏴‍☠️BhardwajLIB ⚡\n\n🤞Thanks for choosing this library❄ as it will help me to analyze the error⚠❗ raise issues on github.** ✔")        
         
     elif event.data == b'reset':
         try:
@@ -697,16 +697,16 @@ async def callback_query_handler(event):
             thumbnail_path = f"{user_id}.jpg"
             if os.path.exists(thumbnail_path):
                 os.remove(thumbnail_path)
-            await event.respond("✅ Reset successfully, to logout click /logout")
+            await event.respond("🚀✔Reset successfully,🎗 to logout click /logout🎗")
         except Exception as e:
-            await event.respond(f"Error clearing delete list: {e}")
+            await event.respond(f"⚠Error clearing delete list❗: {e}")
     
     elif event.data == b'remthumb':
         try:
             os.remove(f'{user_id}.jpg')
-            await event.respond('Thumbnail removed successfully!')
+            await event.respond('✨Thumbnail removed successfully✔!')
         except FileNotFoundError:
-            await event.respond("No thumbnail found to remove.")
+            await event.respond("⚠No thumbnail found to remove💦.")
     
 
 @gf.on(events.NewMessage(func=lambda e: e.sender_id in pending_photos))
@@ -718,10 +718,10 @@ async def save_thumbnail(event):
         if os.path.exists(f'{user_id}.jpg'):
             os.remove(f'{user_id}.jpg')
         os.rename(temp_path, f'./{user_id}.jpg')
-        await event.respond('Thumbnail saved successfully!')
+        await event.respond('✨Thumbnail saved successfully✔!')
 
     else:
-        await event.respond('Please send a photo... Retry')
+        await event.respond('🎗Please send a photo... Retry❄')
 
     # Remove user from pending photos dictionary in both cases
     pending_photos.pop(user_id, None)
@@ -744,19 +744,19 @@ async def handle_user_input(event):
             try:
                 chat_id = event.text
                 user_chat_ids[user_id] = chat_id
-                await event.respond("Chat ID set successfully!")
+                await event.respond("✨Chat ID set successfully✔!")
             except ValueError:
-                await event.respond("Invalid chat ID!")
+                await event.respond("⚠Invalid chat ID❗!")
                 
         elif session_type == 'setrename':
             custom_rename_tag = event.text
             await set_rename_command(user_id, custom_rename_tag)
-            await event.respond(f"Custom rename tag set to: {custom_rename_tag}")
+            await event.respond(f"✨Custom rename tag set to: {custom_rename_tag}")
         
         elif session_type == 'setcaption':
             custom_caption = event.text
             await set_caption_command(user_id, custom_caption)
-            await event.respond(f"Custom caption set to: {custom_caption}")
+            await event.respond(f"✨Custom caption set to: {custom_caption}✔")
 
         elif session_type == 'setreplacement':
             match = re.match(r"'(.+)' '(.+)'", event.text)
@@ -771,19 +771,19 @@ async def handle_user_input(event):
                     replacements = load_replacement_words(user_id)
                     replacements[word] = replace_word
                     save_replacement_words(user_id, replacements)
-                    await event.respond(f"Replacement saved: '{word}' will be replaced with '{replace_word}'")
+                    await event.respond(f"✨Replacement saved: '{word}' will be replaced with '{replace_word}'✔")
 
         elif session_type == 'addsession':
             session_string = event.text
             await odb.set_session(user_id, session_string)
-            await event.respond("✅ Session string added successfully!")
+            await event.respond("✨Session string added successfully!✔")
                 
         elif session_type == 'deleteword':
             words_to_delete = event.message.text.split()
             delete_words = load_delete_words(user_id)
             delete_words.update(words_to_delete)
             save_delete_words(user_id, delete_words)
-            await event.respond(f"Words added to delete list: {', '.join(words_to_delete)}")
+            await event.respond(f"✨Words added to delete list: {', '.join(words_to_delete)}")
                
             
         del sessions[user_id]
@@ -792,34 +792,34 @@ async def handle_user_input(event):
 @gf.on(events.NewMessage(incoming=True, pattern='/lock'))
 async def lock_command_handler(event):
     if event.sender_id not in OWNER_ID:
-        return await event.respond("You are not authorized to use this command.")
+        return await event.respond("💀you are not Owner😭.")
     
     # Extract the channel ID from the command
     try:
         channel_id = int(event.text.split(' ')[1])
     except (ValueError, IndexError):
-        return await event.respond("Invalid /lock command. Use /lock CHANNEL_ID.")
+        return await event.respond("⚠Invalid /lock command❗. Use /lock CHANNEL_ID.")
     
     # Save the channel ID to the MongoDB database
     try:
         # Insert the channel ID into the collection
         collection.insert_one({"channel_id": channel_id})
-        await event.respond(f"Channel ID {channel_id} locked successfully.")
+        await event.respond(f"✨Channel ID {channel_id} locked successfully✔.")
     except Exception as e:
-        await event.respond(f"Error occurred while locking channel ID: {str(e)}")
+        await event.respond(f"⚠Error occurred while locking channel ID: {str(e)}")
 
 
 async def handle_large_file(file, sender, edit, caption):
     if pro is None:
-        await edit.edit('**__ ❌ 4GB trigger not found__**')
+        await edit.edit('**__ ❌ 4GB trigger not found❗__**')
         os.remove(file)
         gc.collect()
         return
     
     dm = None
     
-    print("4GB connector found.")
-    await edit.edit('**__ ✅ 4GB trigger connected...__**\n\n')
+    print("4GB connector found.✨✔")
+    await edit.edit('**__ ⚔ 4GB trigger connected...✨✔...__**\n\n')
     
     target_chat_id = user_chat_ids.get(sender, sender)
     file_extension = str(file).split('.')[-1].lower()
@@ -841,7 +841,7 @@ async def handle_large_file(file, sender, edit, caption):
                 duration=duration,
                 progress=progress_bar,
                 progress_args=(
-                    "╭─────────────────────╮\n│       **__4GB Uploader__ ⚡**\n├─────────────────────",
+                    "╭─────────────────────╮\n│       **__🚀4GB Uploader🚀__ ⚡**\n├─────────────────────",
                     edit,
                     time.time()
                 )
@@ -855,7 +855,7 @@ async def handle_large_file(file, sender, edit, caption):
                 thumb=thumb_path,
                 progress=progress_bar,
                 progress_args=(
-                    "╭─────────────────────╮\n│      **__4GB Uploader ⚡__**\n├─────────────────────",
+                    "╭─────────────────────╮\n│      **__🚀4GB Uploader 🚀__**\n├─────────────────────",
                     edit,
                     time.time()
                 )
@@ -867,7 +867,7 @@ async def handle_large_file(file, sender, edit, caption):
         if freecheck == 1:
             reply_markup = InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton("💎 Get Premium to Forward", url="https://t.me/kingofpatal")]
+                    [InlineKeyboardButton("💎 Get Premium👑 to Forward", url="https://t.me/BhardwajBhardwaj")]
                 ]
             )
             await app.copy_message(
@@ -941,7 +941,7 @@ async def is_file_size_exceeding(file_path, size_limit):
         print(f"File not found: {file_path}")
         return False
     except Exception as e:
-        print(f"Error while checking file size: {e}")
+        print(f"⚠Error while checking file size❗: {e}")
         return False
 
 
@@ -964,7 +964,7 @@ def progress_callback(done, total, user_id):
     # Format the progress bar
     completed_blocks = int(percent // 10)
     remaining_blocks = 10 - completed_blocks
-    progress_bar = "♦" * completed_blocks + "◇" * remaining_blocks
+    progress_bar = "👻" * completed_blocks + "〰" * remaining_blocks
     
     # Convert done and total to MB for easier reading
     done_mb = done / (1024 * 1024)  # Convert bytes to MB
@@ -992,7 +992,7 @@ def progress_callback(done, total, user_id):
     # Format the final output as needed
     final = (
         f"╭──────────────────╮\n"
-        f"│     **__SpyLib ⚡ Uploader__**       \n"
+        f"│     **__🍁💢Bhardwaj💢🍁 🚀Uploader🚀__**       \n"
         f"├──────────\n"
         f"│ {progress_bar}\n\n"
         f"│ **__Progress:__** {percent:.2f}%\n"
@@ -1000,7 +1000,7 @@ def progress_callback(done, total, user_id):
         f"│ **__Speed:__** {speed_mbps:.2f} Mbps\n"
         f"│ **__ETA:__** {remaining_time_min:.2f} min\n"
         f"╰──────────────────╯\n\n"
-        f"**__Powered by Team SPY__**"
+        f"**__Powered by 💢🏴‍☠️BhardwajBhavit🏴‍☠️💢__**"
     )
     
     # Update tracking variables for the user
@@ -1027,7 +1027,7 @@ def dl_progress_callback(done, total, user_id):
     # Format the progress bar
     completed_blocks = int(percent // 10)
     remaining_blocks = 10 - completed_blocks
-    progress_bar = "♦" * completed_blocks + "◇" * remaining_blocks
+    progress_bar = "👻" * completed_blocks + "〰" * remaining_blocks
     
     # Convert done and total to MB for easier reading
     done_mb = done / (1024 * 1024)  # Convert bytes to MB
@@ -1055,7 +1055,7 @@ def dl_progress_callback(done, total, user_id):
     # Format the final output as needed
     final = (
         f"╭──────────────────╮\n"
-        f"│     **__SpyLib ⚡ Downloader__**       \n"
+        f"│     **__🍁🏴‍☠️Bhardwaj🏴‍☠️🍁  🌻Downloader🌻__**       \n"
         f"├──────────\n"
         f"│ {progress_bar}\n\n"
         f"│ **__Progress:__** {percent:.2f}%\n"
@@ -1063,7 +1063,7 @@ def dl_progress_callback(done, total, user_id):
         f"│ **__Speed:__** {speed_mbps:.2f} Mbps\n"
         f"│ **__ETA:__** {remaining_time_min:.2f} min\n"
         f"╰──────────────────╯\n\n"
-        f"**__Powered by Team SPY__**"
+        f"**__Powered by 🏴‍☠️⚜BhardwajBhavit⚜🏴‍☠️__**"
     )
     
     # Update tracking variables for the user
@@ -1080,7 +1080,7 @@ async def split_and_upload_file(app, sender, target_chat_id, file_path, caption,
         return
 
     file_size = os.path.getsize(file_path)
-    start = await app.send_message(sender, f"ℹ️ File size: {file_size / (1024 * 1024):.2f} MB")
+    start = await app.send_message(sender, f"🚀 File size: {file_size / (1024 * 1024):.2f} MB")
     PART_SIZE =  1.9 * 1024 * 1024 * 1024
 
     part_number = 0
@@ -1099,11 +1099,11 @@ async def split_and_upload_file(app, sender, target_chat_id, file_path, caption,
                 await part_f.write(chunk)
 
             # Uploading part
-            edit = await app.send_message(target_chat_id, f"⬆️ Uploading part {part_number + 1}...")
+            edit = await app.send_message(target_chat_id, f"🚀 Uploading part {part_number + 1}...")
             part_caption = f"{caption} \n\n**Part : {part_number + 1}**"
             await app.send_document(target_chat_id, document=part_file, caption=part_caption, reply_to_message_id=topic_id,
                 progress=progress_bar,
-                progress_args=("╭─────────────────────╮\n│      **__Pyro Uploader__**\n├─────────────────────", edit, time.time())
+                progress_args=("╭─────────────────────╮\n│      **__🍁💢Bhardwaj💢🍁 🚀Uploader🚀__**\n├─────────────────────", edit, time.time())
             )
             await edit.delete()
             os.remove(part_file)  # Cleanup after upload
