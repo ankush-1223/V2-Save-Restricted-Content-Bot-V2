@@ -73,20 +73,20 @@ async def token_handler(client, message):
     msg = await app.get_messages(chat_id, 796)
     user_id = message.chat.id
     if len(message.command) <= 1:
-        image_url = "https://i.postimg.cc/v8q8kGyz/startimg-1.jpg"
-        join_button = InlineKeyboardButton("Join Channel", url="https://t.me/team_spy_pro")
-        premium = InlineKeyboardButton("Get Premium", url="https://t.me/kingofpatal")   
+        image_url = "https://envs.sh/mT_.jpg"
+        join_button = InlineKeyboardButton("🎗Join Channel🎗", url="https://t.me/DM_HUB_069")
+        premium = InlineKeyboardButton("⚜Get Premium👑", url="https://t.me/BhardwajBhavit")   
         keyboard = InlineKeyboardMarkup([
             [join_button],   
             [premium]    
         ])
          
         await message.reply_photo(
-            msg.photo.file_id,
+            image_url,
             caption=(
-                "Hi 👋 Welcome, Wanna intro...?\n\n"
-                "✳️ I can save posts from channels or groups where forwarding is off. I can download videos/audio from YT, INSTA, ... social platforms\n"
-                "✳️ Simply send the post link of a public channel. For private channels, do /login. Send /help to know more."
+                "Hi 💢🏴‍☠️ Welcome, Wanna intro...?\n\n"
+                "👻🌻〰〰I can save posts from channels or groups where             FORWARDING is OFF💀.\n\n 🚀🃏〰〰I can download      🎥Videos 🔊Audio    from     YT, INSTA, ...            social platforms\n"
+                "🤞⚜〰〰use  /token  to use Premium👑 for FREE \n\n 🍁✨〰〰send post link of a public channel. For private channels,             do /login.✨ \n\n 💢⚡〰〰Send /help to know more."
             ),
             reply_markup=keyboard
         )
@@ -95,7 +95,7 @@ async def token_handler(client, message):
     param = message.command[1] if len(message.command) > 1 else None
     freecheck = await chk_user(message, user_id)
     if freecheck != 1:
-        await message.reply("You are a premium user no need of token 😉")
+        await message.reply("token is Cheap for you🤨 You are  Premium👑 no need of Token👻")
         return
  
      
@@ -109,10 +109,10 @@ async def token_handler(client, message):
                 "expires_at": datetime.utcnow() + timedelta(hours=3),
             })
             del Param[user_id]   
-            await message.reply("✅ You have been verified successfully! Enjoy your session for next 3 hours.")
+            await message.reply("✨✔ oh! you Got a Token.💥 Enjoy your Premium👑  for next 3️⃣ Hours👻.")
             return
         else:
-            await message.reply("❌ Invalid or expired verification link. Please generate a new token.")
+            await message.reply("❌⚠ oh! Link is expire😕 Please generate a new token🌻.")
             return
  
 @app.on_message(filters.command("token"))
@@ -121,10 +121,10 @@ async def smart_handler(client, message):
      
     freecheck = await chk_user(message, user_id)
     if freecheck != 1:
-        await message.reply("You are a premium user no need of token 😉")
+        await message.reply("token is Cheap for you🤨 You are  Premium👑 no need of Token👻")
         return
     if await is_user_verified(user_id):
-        await message.reply("✅ Your free session is already active enjoy!")
+        await message.reply("oh!🤞! you already have a Token Enjoy😁 Genrate new Token after it got Expire.♻")
     else:
          
         param = await generate_random_param()
@@ -136,12 +136,12 @@ async def smart_handler(client, message):
          
         shortened_url = await get_shortened_url(deep_link)
         if not shortened_url:
-            await message.reply("❌ Failed to generate the token link. Please try again.")
+            await message.reply("😭can't Genrate Token.? contact🍁 @BhardwajBhavit 🍁.")
             return
  
          
         button = InlineKeyboardMarkup(
-            [[InlineKeyboardButton("Verify the token now...", url=shortened_url)]]
+            [[InlineKeyboardButton("🤞✨Click here to get FREE Premium👑.", url=shortened_url)]]
         )
-        await message.reply("Click the button below to verify your free access token: \n\n> What will you get ? \n1. No time bound upto 3 hours \n2. Batch command limit will be FreeLimit + 20 \n3. All functions unlocked", reply_markup=button)
+        await message.reply("✨Click the button below to verify✔ your FREE Premium👑😯: \n\n> 🎗♻What will you get ?🎗🤞 \n1. No time bound upto 3️⃣ Hours \n2. 🤤Free Premium👑 in your Hands😎 \n3. 💥All functions unlocked🔏", reply_markup=button)
  
