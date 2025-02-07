@@ -56,7 +56,7 @@ async def check_interval(user_id, freecheck):
         cooldown_end = interval_set[user_id]
         if now < cooldown_end:
             remaining_time = (cooldown_end - now).seconds
-            return False, f"Please wait {remaining_time} seconds(s) before sending another link. Alternatively, purchase premium for instant access.\n\n> Hey 👋 You can use /token to use the bot free for 3 hours without any time limit."
+            return False, f"🙄Please wait {remaining_time} seconds(s) 😑before sending another link. Alternatively, purchase premium👑 for instant access⚡.\n\n> Hey 💥 You can use /token to use the bot FREE😵 for 3 Hours without any time limit👀."
         else:
             del interval_set[user_id]  # Cooldown expired, remove user from interval set
 
@@ -82,13 +82,13 @@ async def single_link(_, message):
     # Check if user is already in a loop
     if users_loop.get(user_id, False):
         await message.reply(
-            "You already have an ongoing process. Please wait for it to finish or cancel it with /cancel."
+            "⚠You already have an ongoing process🙄. Please wait for it to finish〽 or cancel it with /cancel.➰"
         )
         return
 
     # Check freemium limits
     if await chk_user(message, user_id) == 1 and FREEMIUM_LIMIT == 0 and user_id not in OWNER_ID and not await is_user_verified(user_id):
-        await message.reply("Freemium service is currently not available. Upgrade to premium for access.")
+        await message.reply("❗Freemium service is currently not available😓. Upgrade to premium👑 for access.⚡")
         return
 
     # Check cooldown
@@ -101,7 +101,7 @@ async def single_link(_, message):
     users_loop[user_id] = True
 
     link = message.text if "tg://openmessage" in message.text else get_link(message.text)
-    msg = await message.reply("Processing...")
+    msg = await message.reply("⚡Processing...⚡")
     userbot = await initialize_userbot(user_id)
 
     try:
@@ -114,7 +114,7 @@ async def single_link(_, message):
             await process_special_links(userbot, user_id, msg, link)
             
     except FloodWait as fw:
-        await msg.edit_text(f'Try again after {fw.x} seconds due to floodwait from Telegram.')
+        await msg.edit_text(f'😕Try again after {fw.x} seconds😑 due to floodwait from Telegram.💢')
     except Exception as e:
         await msg.edit_text(f"Link: `{link}`\n\n**Error:** {str(e)}")
     finally:
