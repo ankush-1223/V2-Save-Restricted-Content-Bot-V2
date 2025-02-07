@@ -116,7 +116,7 @@ async def single_link(_, message):
     except FloodWait as fw:
         await msg.edit_text(f'😕Try again after {fw.x} seconds😑 due to floodwait from Telegram.💢')
     except Exception as e:
-        await msg.edit_text(f"Link: `{link}`\n\n**Error:** {str(e)}")
+        await msg.edit_text(f"Link: `{link}`\n\n**❗Error❗:** {str(e)}")
     finally:
         users_loop[user_id] = False
         if userbot:
@@ -174,33 +174,33 @@ async def batch_link(_, message):
     if users_loop.get(user_id, False):
         await app.send_message(
             message.chat.id,
-            "You already have a batch process running. Please wait for it to complete."
+            "🙄You already have a batch process running.😑 Please wait for it to complete.💢"
         )
         return
 
     freecheck = await chk_user(message, user_id)
     if freecheck == 1 and FREEMIUM_LIMIT == 0 and user_id not in OWNER_ID and not await is_user_verified(user_id):
-        await message.reply("Freemium service is currently not available. Upgrade to premium for access.")
+        await message.reply("❗Freemium service is currently not available😓. Upgrade to premium👑 for access.⚡.")
         return
 
     max_batch_size = FREEMIUM_LIMIT if freecheck == 1 else PREMIUM_LIMIT
 
     # Start link input
     for attempt in range(3):
-        start = await app.ask(message.chat.id, "Please send the start link.\n\n> Maximum tries 3")
+        start = await app.ask(message.chat.id, "👻Please send the start link♻.\n\n> Maximum tries 3️⃣")
         start_id = start.text.strip()
         s = start_id.split("/")[-1]
         if s.isdigit():
             cs = int(s)
             break
-        await app.send_message(message.chat.id, "Invalid link. Please send again ...")
+        await app.send_message(message.chat.id, "❗❗Invalid link.🙄 Please send again ...🎗")
     else:
-        await app.send_message(message.chat.id, "Maximum attempts exceeded. Try later.")
+        await app.send_message(message.chat.id, "💢Maximum attempts exceeded.😕 Try later.🙄")
         return
 
     # Number of messages input
     for attempt in range(3):
-        num_messages = await app.ask(message.chat.id, f"How many messages do you want to process?\n> Max limit {max_batch_size}")
+        num_messages = await app.ask(message.chat.id, f"🌻How many messages do you want to process❓🌻\n> Max limit {max_batch_size}")
         try:
             cl = int(num_messages.text.strip())
             if 1 <= cl <= max_batch_size:
@@ -209,10 +209,10 @@ async def batch_link(_, message):
         except ValueError:
             await app.send_message(
                 message.chat.id, 
-                f"Invalid number. Please enter a number between 1 and {max_batch_size}."
+                f"❗Invalid number.😕 Please enter a number🙄 between 1 and {max_batch_size}.♻"
             )
     else:
-        await app.send_message(message.chat.id, "Maximum attempts exceeded. Try later.")
+        await app.send_message(message.chat.id, "💢Maximum attempts exceeded.😕 Try later.🙄.")
         return
 
     # Validate and interval check
@@ -221,11 +221,11 @@ async def batch_link(_, message):
         await message.reply(response_message)
         return
         
-    join_button = InlineKeyboardButton("Join Channel", url="https://t.me/team_spy_pro")
+    join_button = InlineKeyboardButton("✨Join Channel⚔", url="https://t.me/DM_HUB_069")
     keyboard = InlineKeyboardMarkup([[join_button]])
     pin_msg = await app.send_message(
         user_id,
-        f"Batch process started ⚡\nProcessing: 0/{cl}\n\n**Powered by Team SPY**",
+        f"♻Batch process started 🍁\n⚡Processing⚡: 0/{cl}\n\n**Powered by 🍁🏴‍☠️BhardwajBhavit🏴‍☠️🍁**",
         reply_markup=keyboard
     )
     await pin_msg.pin(both_sides=True)
@@ -241,48 +241,48 @@ async def batch_link(_, message):
                 link = get_link(url)
                 # Process t.me links (normal) without userbot
                 if 't.me/' in link and not any(x in link for x in ['t.me/b/', 't.me/c/', 'tg://openmessage']):
-                    msg = await app.send_message(message.chat.id, f"Processing...")
+                    msg = await app.send_message(message.chat.id, f"⚡Processing...⚡")
                     await process_and_upload_link(userbot, user_id, msg.id, link, 0, message)
                     await pin_msg.edit_text(
-                        f"Batch process started ⚡\nProcessing: {i - cs + 1}/{cl}\n\n**__Powered by Team SPY__**",
+                        f"♻Batch process started 🍁\n⚡Processing⚡: {i - cs + 1}/{cl}\n\n**__Powered by 🍁🏴‍☠️BhardwajBhavit🏴‍☠️🍁__**",
                         reply_markup=keyboard
                     )
                     normal_links_handled = True
         if normal_links_handled:
             await set_interval(user_id, interval_minutes=300)
             await pin_msg.edit_text(
-                f"Batch completed successfully for {cl} messages 🎉\n\n**__Powered by Team SPY__**",
+                f"♻✨Batch completed successfully for {cl} messages 🤞\n\n**__Powered by ✨⚜BhardwajBhavit⚜__**",
                 reply_markup=keyboard
             )
-            await app.send_message(message.chat.id, "Batch completed successfully! 🎉")
+            await app.send_message(message.chat.id, "♻✨Batch completed successfully! 🤞")
             return
             
         # Handle special links with userbot
         for i in range(cs, cs + cl):
             if not userbot:
-                await app.send_message(message.chat.id, "Login in bot first ...")
+                await app.send_message(message.chat.id, "❗Login in bot first ...🙄")
                 users_loop[user_id] = False
                 return
             if user_id in users_loop and users_loop[user_id]:
                 url = f"{'/'.join(start_id.split('/')[:-1])}/{i}"
                 link = get_link(url)
                 if any(x in link for x in ['t.me/b/', 't.me/c/']):
-                    msg = await app.send_message(message.chat.id, f"Processing...")
+                    msg = await app.send_message(message.chat.id, f"⚡Processing...⚡")
                     await process_and_upload_link(userbot, user_id, msg.id, link, 0, message)
                     await pin_msg.edit_text(
-                        f"Batch process started ⚡\nProcessing: {i - cs + 1}/{cl}\n\n**__Powered by Team SPY__**",
+                        f"♻✨Batch process started 🍁\n⚡Processing⚡: {i - cs + 1}/{cl}\n\n**__Powered by ✨BhardwajBhavit✨__**",
                         reply_markup=keyboard
                     )
 
         await set_interval(user_id, interval_minutes=300)
         await pin_msg.edit_text(
-            f"Batch completed successfully for {cl} messages 🎉\n\n**__Powered by Team SPY__**",
+            f"♻✨Batch completed successfully for {cl} messages 🍁\n\n**__Powered by 💢BhardwajBhavit💢__**",
             reply_markup=keyboard
         )
-        await app.send_message(message.chat.id, "Batch completed successfully! 🎉")
+        await app.send_message(message.chat.id, "🤞Batch completed successfully! 🤞")
 
     except Exception as e:
-        await app.send_message(message.chat.id, f"Error: {e}")
+        await app.send_message(message.chat.id, f"❗Error❗: {e}")
     finally:
         users_loop.pop(user_id, None)
 
@@ -295,15 +295,15 @@ async def stop_batch(_, message):
         users_loop[user_id] = False  # Set the loop status to False
         await app.send_message(
             message.chat.id, 
-            "Batch processing has been stopped successfully. You can start a new batch now if you want."
+            "♻Batch processing has been stopped successfully♻. 🤞You can start a new batch now if you want🎗."
         )
     elif user_id in users_loop and not users_loop[user_id]:
         await app.send_message(
             message.chat.id, 
-            "The batch process was already stopped. No active batch to cancel."
+            "💢The batch process was already stopped💢. No active batch to cancel.😑"
         )
     else:
         await app.send_message(
             message.chat.id, 
-            "No active batch processing is running to cancel."
+            "🤨No active batch processing is running to cancel.〽"
         )
