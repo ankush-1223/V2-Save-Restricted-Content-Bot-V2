@@ -15,11 +15,7 @@ PREMIUM_LIMIT = int(getenv("PREMIUM_LIMIT", "1000"))
 WEBSITE_URL = getenv("WEBSITE_URL", "Modijiurl.com")
 AD_API = getenv("AD_API", "f2bb4074d89772fb1db2ed878a7b417d06c3e121")
 STRING = getenv("STRING", None)
-YT_COOKIES = getenv("YT_COOKIES", "# Netscape HTTP Cookie File
-# This is a generated file! Do not edit.
-
-# domain  include_subdomains  path  secure  expiration_date  name  value
-.youtube.com	TRUE	/	TRUE	1770205221	__Secure-1PSIDCC	AKEyXzVKZqq7XjBLkQgf5bssy6G9f8vb0tfoqlXYvSeY39uD3iKwHoEriizOv_6iscXdTH61
+YT_COOKIES = getenv("YT_COOKIES", ".youtube.com	TRUE	/	TRUE	1770205221	__Secure-1PSIDCC	AKEyXzVKZqq7XjBLkQgf5bssy6G9f8vb0tfoqlXYvSeY39uD3iKwHoEriizOv_6iscXdTH61
 .youtube.com	TRUE	/	TRUE	1738669721	CONSISTENCY	AKreu9vaorvq2Aul_bgs0_Cweut6tKHuexa_W3QJFEABi9m9bKM1q1LSwO_c_JbwJa_xT2WfPMusLzVnvxRoueXzQTidgEYYCcP7xLdE7ZNmeH3Lm3cxVqaytwQ
 .youtube.com	TRUE	/	FALSE	1773229015	SID	g.a000tAi_eYFXaNjnRZH4eBOZrmIdCeU_6_cfmk67BKbTUjxm1BwsY7t7Mdgeo_F0V_XJCWOl5AACgYKAagSARMSFQHGX2MinceJZy3Y50WyKfCg0lSeNxoVAUF8yKob4IT0gHXD5-L4CLFgket80076
 .youtube.com	TRUE	/	TRUE	1773229015	__Secure-1PAPISID	IX-B5LiPQuvfD9GV/A3cNKo89uZ2FtZN_H
@@ -42,11 +38,7 @@ YT_COOKIES = getenv("YT_COOKIES", "# Netscape HTTP Cookie File
 .youtube.com	TRUE	/	TRUE	0	YSC	NaHxy0i33lM
 .youtube.com	TRUE	/	TRUE	1738670477	GPS	1
 ")
-INSTA_COOKIES = getenv("INSTA_COOKIES", "# Netscape HTTP Cookie File
-# http://curl.haxx.se/rfc/cookie_spec.html
-# This is a generated file!  Do not edit.
-
-.instagram.com	TRUE	/	TRUE	1769863755	csrftoken	QJ28ZuyDOV9cVNG7ka_6Lx
+INSTA_COOKIES = getenv("INSTA_COOKIES", ".instagram.com	TRUE	/	TRUE	1769863755	csrftoken	QJ28ZuyDOV9cVNG7ka_6Lx
 .instagram.com	TRUE	/	TRUE	1772974155	datr	ShieZx6zZeiiyBSZYUkzwGNn
 .instagram.com	TRUE	/	TRUE	1769950155	ig_did	F723BB93-7DA6-4B9D-B284-BDDCA1631C63
 .instagram.com	TRUE	/	TRUE	1739018958	wd	384x726
