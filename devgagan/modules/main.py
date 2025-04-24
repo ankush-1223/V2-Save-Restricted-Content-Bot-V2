@@ -221,7 +221,7 @@ async def batch_link(_, message):
         await message.reply(response_message)
         return
         
-    join_button = InlineKeyboardButton("✨Join Channel⚔", url="https://t.me/DM_HUB_069")
+    join_button = InlineKeyboardButton("✨Join Channel⚔", url="https://t.me/LarvaLinks")
     keyboard = InlineKeyboardMarkup([[join_button]])
     pin_msg = await app.send_message(
         user_id,
