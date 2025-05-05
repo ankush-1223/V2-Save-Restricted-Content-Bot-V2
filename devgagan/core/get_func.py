@@ -12,7 +12,6 @@
 # License: MIT License
 # Improved logic handles
 # ---------------------------------------------------
-
 import asyncio
 import time
 import gc
@@ -72,10 +71,8 @@ async def format_caption_to_html(caption: str) -> str:
     caption = re.sub(r"_(.*?)_", r"<i>\1</i>", caption)
     caption = re.sub(r"~~(.*?)~~", r"<s>\1</s>", caption)
     caption = re.sub(r"\|\|(.*?)\|\|", r"<details>\1</details>", caption)
-    caption = re.sub(r"\[(.*?)\]\((.*?)\)", r'<a href="\2">\1</a>', caption)
+    caption = re.sub(r"(.*?)(.*?)", r'<a href="\2">\1</a>', caption)
     return caption.strip() if caption else None
-    
-
 
 async def upload_media(sender, target_chat_id, file, caption, edit, topic_id):
     try:
@@ -98,7 +95,7 @@ async def upload_media(sender, target_chat_id, file, caption, edit, topic_id):
                     height=height,
                     width=width,
                     duration=duration,
-                    thumb=thumb_path,
+                    thumb=None,  # Force removal of thumbnail here
                     reply_to_message_id=topic_id,
                     parse_mode=ParseMode.MARKDOWN,
                     progress=progress_bar,
@@ -122,7 +119,7 @@ async def upload_media(sender, target_chat_id, file, caption, edit, topic_id):
                     chat_id=target_chat_id,
                     document=file,
                     caption=caption,
-                    thumb=thumb_path,
+                    thumb=None,  # Force removal of thumbnail here
                     reply_to_message_id=topic_id,
                     progress=progress_bar,
                     parse_mode=ParseMode.MARKDOWN,
@@ -159,14 +156,14 @@ async def upload_media(sender, target_chat_id, file, caption, edit, topic_id):
                 caption=caption,
                 attributes=attributes,
                 reply_to=topic_id,
-                thumb=thumb_path
+                thumb=None  # Force removal of thumbnail here
             )
             await gf.send_file(
                 LOG_GROUP,
                 uploaded,
                 caption=caption,
                 attributes=attributes,
-                thumb=thumb_path
+                thumb=None  # Force removal of thumbnail here
             )
 
     except Exception as e:
@@ -177,7 +174,6 @@ async def upload_media(sender, target_chat_id, file, caption, edit, topic_id):
         if thumb_path and os.path.exists(thumb_path):
             os.remove(thumb_path)
         gc.collect()
-
 
 async def get_msg(userbot, sender, edit_id, msg_link, i, message):
     try:
@@ -256,10 +252,6 @@ async def get_msg(userbot, sender, edit_id, msg_link, i, message):
         # Handle file media (photo, document, video)
         file_size = get_message_file_size(msg)
 
-        # if file_size and file_size > size_limit and pro is None:
-        #     await app.edit_message_text(sender, edit_id, "**❌ 4GB Uploader not found❗**")
-        #     return
-
         file_name = await get_media_filename(msg)
         edit = await app.edit_message_text(sender, edit_id, "**🍁Downloading...🍁**")
 
@@ -294,8 +286,7 @@ async def get_msg(userbot, sender, edit_id, msg_link, i, message):
             return
 
         # Upload media
-        # await edit.edit("**Checking file...**")
-        if file_size > size_limit and (free_check == 1 or pro is None):
+        if file_size > size_limit:
             await edit.delete()
             await split_and_upload_file(app, sender, target_chat_id, file, caption, topic_id)
             return
@@ -307,14 +298,15 @@ async def get_msg(userbot, sender, edit_id, msg_link, i, message):
     except (ChannelBanned, ChannelInvalid, ChannelPrivate, ChatIdInvalid, ChatInvalid):
         await app.edit_message_text(sender, edit_id, "❗Have you joined the channel❓")
     except Exception as e:
-        # await app.edit_message_text(sender, edit_id, f"Failed to save: `{msg_link}`\n\nError: {str(e)}")
         print(f"Error: {e}")
     finally:
-        # Clean up
         if file and os.path.exists(file):
             os.remove(file)
         if edit:
             await edit.delete(2)
+
+# Continue with the rest of your code unchanged...
+            
         
 async def clone_message(app, msg, target_chat_id, topic_id, edit_id, log_group):
     edit = await app.edit_message_text(target_chat_id, edit_id, "☢Cloning...☢")
