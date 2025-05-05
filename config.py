@@ -3,13 +3,13 @@
 
 from os import getenv
 
-API_ID = int(getenv("API_ID", "27392387"))
-API_HASH = getenv("API_HASH", "37ee47c18c8be62716a27335a771e7da")
+API_ID = int(getenv("API_ID", ""))
+API_HASH = getenv("API_HASH", "")
 BOT_TOKEN = getenv("BOT_TOKEN", "")
-OWNER_ID = list(map(int, getenv("OWNER_ID", "5787359348").split()))
-MONGO_DB = getenv("MONGO_DB", "mongodb+srv://Bhardwaj:7vVHr6zrvpsMsU3@cluster0.p2smf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-LOG_GROUP = getenv("LOG_GROUP", "-1002406770624")
-CHANNEL_ID = int(getenv("CHANNEL_ID", "-1002416207641"))
+OWNER_ID = list(map(int, getenv("OWNER_ID", "").split()))
+MONGO_DB = getenv("MONGO_DB", "")
+LOG_GROUP = getenv("LOG_GROUP", "")
+CHANNEL_ID = int(getenv("CHANNEL_ID", ""))
 FREEMIUM_LIMIT = int(getenv("FREEMIUM_LIMIT", "50"))
 PREMIUM_LIMIT = int(getenv("PREMIUM_LIMIT", "1000"))
 WEBSITE_URL = getenv("WEBSITE_URL", "Modijiurl.com")
